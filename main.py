@@ -9,6 +9,14 @@ from sprites import *
 from random import randint
 import sys
 from os import path
+
+'''
+List-
+health
+mobs
+maps
+Wanting to add more maps to expand ganme while having health and mobs that can kill
+'''
  
  
 # Define game class...
