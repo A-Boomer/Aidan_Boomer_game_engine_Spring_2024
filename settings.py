@@ -18,4 +18,4 @@ LIGHTGREY = (75,75,75)
 RED = (136,8,8)
 
 # Player settings
-PLAYER_SPEED = 300
+PLAYER_SPEED = 250
