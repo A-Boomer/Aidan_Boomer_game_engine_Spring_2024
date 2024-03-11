@@ -9,6 +9,7 @@ from sprites import *
 from random import randint
 import sys
 from os import path
+pg.mixer.init() 
 
 '''
 List-
@@ -41,6 +42,20 @@ class Game:
             for line in f:
                 print(line)
                 self.map_data.append(line)
+        self.snd_folder = path.join(game_folder, 'sounds') 
+
+        def new(self):
+         pg.mixer.music.load(path.join(self.snd_folder, 'soundtrack2.mp3'))
+
+         def load_data(self):
+        game_folder = path.dirname(__file__)
+        img_folder = path.join(game_folder, 'images')
+        self.player_img = pg.image.load(path.join(img_folder, 'autobot.png')).convert_alpha()
+        self.img_folder = path.join(game_folder, 'images')
+        self.snd_folder = path.join(game_folder, 'sounds')
+
+        self.player_img = pg.image.load(path.join(self.img_folder, 'autobot.png')).convert_alpha()
+        self.map_data = []
  
     # Create run method which runs the whole GAME
     def new(self):
