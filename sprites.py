@@ -1,7 +1,7 @@
 # This file was created by: ishan routray
 import pygame as pg
 from settings import *
- 
+vec =pg.math.Vector2
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites
