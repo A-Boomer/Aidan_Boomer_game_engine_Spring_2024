@@ -44,18 +44,18 @@ class Game:
                 self.map_data.append(line)
         self.snd_folder = path.join(game_folder, 'sounds') 
 
-        def new(self):
+    def new(self):
          pg.mixer.music.load(path.join(self.snd_folder, 'soundtrack2.mp3'))
 #code is broken cant figure out how to import osunds images 
-         def load_data(self):
+    def load_data(self):
         game_folder = path.dirname(__file__)
         img_folder = path.join(game_folder, 'images')
-        self.player_img = pg.image.load(path.join(img_folder, 'autobot.png')).convert_alpha()
+        self.player_img = pg.image.load(path.join(img_folder, 'shrek.png')).convert_alpha()
         self.img_folder = path.join(game_folder, 'images')
         #block in pylance 
         self.snd_folder = path.join(game_folder, 'sounds')
 
-        self.player_img = pg.image.load(path.join(self.img_folder, 'autobot.png')).convert_alpha()
+        self.player_img = pg.image.load(path.join(self.img_folder, 'shrek.png')).convert_alpha()
         self.map_data = []
  
     # Create run method which runs the whole GAME
