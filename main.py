@@ -6,7 +6,7 @@
 import pygame as pg
 from settings import *
 from sprites import *
-from random import randint
+from random import randint 
 import sys
 from os import path
 pg.mixer.init() 
@@ -153,7 +153,7 @@ class Game:
 
     def show_start_screen(self):
         self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, 24, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text(self.screen, "this is my start screen",24, WHITE, 24,35)
         pg.display.flip()
         self.wait_for_key()
     def show_go_screen(self):
@@ -171,7 +171,7 @@ class Game:
 # Instantiate the game...
 g = Game()
 # use game method run to run
-# g.show_start_screen()
+g.show_start_screen()
 while True:
     g.new()
     g.run()
