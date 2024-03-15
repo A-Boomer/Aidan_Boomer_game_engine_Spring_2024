@@ -46,7 +46,7 @@ class Game:
 
     def new(self):
          pg.mixer.music.load(path.join(self.snd_folder, 'soundtrack2.mp3'))
-#code is broken cant figure out how to import osunds images 
+    #code is broken cant figure out how to import osunds images 
     def load_data(self):
         game_folder = path.dirname(__file__)
         img_folder = path.join(game_folder, 'images')
@@ -87,15 +87,17 @@ class Game:
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
-            self.events()
-            self.update()
-            self.draw()
+        self.events()
+        self.update()
+        self.draw()
     def quit(self):
          pg.quit()
          sys.exit()
  
     def update(self):
         self.all_sprites.update()
+
+        
    
     def draw_grid(self):
          for x in range(0, WIDTH, TILESIZE):
@@ -113,7 +115,8 @@ class Game:
             self.screen.fill(BGCOLOR)
             self.draw_grid()
             self.all_sprites.draw(self.screen)
-            self.draw_text(self.screen, str(self.player.moneybag), 64, WHITE, 1, 1)
+            self.draw_text(self.screen, str(self.cooldown.current_time), 24, WHITE, WIDTH/2 - 32, 2)
+            self.draw_text(self.screen, str(self.cooldown.get_countdown()), 24, WHITE, WIDTH/2 - 32, 120)
  
             pg.display.flip()
  
@@ -147,6 +150,19 @@ class Game:
                     self.quit()
                 if event.type == pg.KEYUP:
                     waiting = False
+
+    def show_start_screen(self):
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, 24, WHITE, WIDTH/2, HEIGHT/2)
+        pg.display.flip()
+        self.wait_for_key()
+    def show_go_screen(self):
+        if not self.running:
+            return
+        self.screen.fill(BGCOLOR)
+        self.draw_text(self.screen, 24, WHITE, WIDTH/2, HEIGHT/2)
+        pg.display.flip()
+        self.wait_for_key()
   
 
 
