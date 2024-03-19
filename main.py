@@ -35,9 +35,7 @@ class Game:
     def load_data(self):
         game_folder = path.dirname(__file__)
         self.map_data = []
-        
       
-    
         with open(path.join(game_folder, 'map.txt'), 'rt') as f:
             for line in f:
                 print(line)
@@ -46,7 +44,7 @@ class Game:
 
     def new(self):
          pg.mixer.music.load(path.join(self.snd_folder, 'soundtrack2.mp3'))
-    #code is broken cant figure out how to import osunds images 
+    # code is broken cant figure out how to import sounds images 
     def load_data(self):
         game_folder = path.dirname(__file__)
         img_folder = path.join(game_folder, 'images')
@@ -57,6 +55,10 @@ class Game:
 
         self.player_img = pg.image.load(path.join(self.img_folder, 'shrek.png')).convert_alpha()
         self.map_data = []
+        with open(path.join(game_folder, 'map.txt'), 'r') as f:
+            for line in f:
+                print(line)
+                self.map_data.append(line)
  
     # Create run method which runs the whole GAME
     def new(self):
@@ -87,9 +89,9 @@ class Game:
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) / 1000
-        self.events()
-        self.update()
-        self.draw()
+            self.events()
+            self.update()
+            self.draw()
     def quit(self):
          pg.quit()
          sys.exit()
@@ -109,16 +111,17 @@ class Game:
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
-        text_rect.topleft = (x*TILESIZE,y*TILESIZE)
+        text_rect.topleft = (x,y)
         surface.blit(text_surface, text_rect)
     def draw(self):
-            self.screen.fill(BGCOLOR)
-            self.draw_grid()
-            self.all_sprites.draw(self.screen)
-            self.draw_text(self.screen, str(self.cooldown.current_time), 24, WHITE, WIDTH/2 - 32, 2)
-            self.draw_text(self.screen, str(self.cooldown.get_countdown()), 24, WHITE, WIDTH/2 - 32, 120)
- 
-            pg.display.flip()
+        print('drawing')
+        self.screen.fill(BGCOLOR)
+        self.draw_grid()
+        self.all_sprites.draw(self.screen)
+        # self.draw_text(self.screen, str(self.cooldown.current_time), 24, WHITE, WIDTH/2 - 32, 2)
+        # self.draw_text(self.screen, str(self.cooldown.get_countdown()), 24, WHITE, WIDTH/2 - 32, 120)
+
+        pg.display.flip()
  
     def events(self):
          for event in pg.event.get():
@@ -136,7 +139,7 @@ class Game:
                 
     def show_start_screen(self):
         self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, 24, WHITE, WIDTH/2 - 32, 2)
+        self.draw_text(self.screen, f"{TITLE}", 24, WHITE, WIDTH//2, HEIGHT//2)
         pg.display.flip()
         self.wait_for_key()
 
@@ -150,19 +153,13 @@ class Game:
                     self.quit()
                 if event.type == pg.KEYUP:
                     waiting = False
-
-    def show_start_screen(self):
-        self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, "this is my start screen",24, WHITE, 24,35)
-        pg.display.flip()
-        self.wait_for_key()
-    def show_go_screen(self):
-        if not self.running:
-            return
-        self.screen.fill(BGCOLOR)
-        self.draw_text(self.screen, 24, WHITE, WIDTH/2, HEIGHT/2)
-        pg.display.flip()
-        self.wait_for_key()
+    # def show_go_screen(self):
+    #     if not self.running:
+    #         return
+    #     self.screen.fill(BGCOLOR)
+    #     self.draw_text(self.screen, 24, WHITE, WIDTH/2, HEIGHT/2)
+    #     pg.display.flip()
+    #     self.wait_for_key()
   
 
 

@@ -8,8 +8,7 @@ class Player(pg.sprite.Sprite):
         # init super class
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(GREEN)
+        self.image = pg.image.load('./Aidan_Boomer_game_engine_Spring_2024/images/shrek.png')
         self.rect = self.image.get_rect()
         self.vx, self.vy = 0, 0
         self.x = x * TILESIZE
