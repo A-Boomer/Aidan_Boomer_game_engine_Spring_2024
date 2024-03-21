@@ -9,6 +9,7 @@ from sprites import *
 from random import randint 
 import sys
 from os import path
+from random import randint
 pg.mixer.init() 
 
 '''
@@ -99,7 +100,8 @@ class Game:
     def update(self):
         self.all_sprites.update()
 
-        
+    def collide_with_group(self, group, kill):
+        hits = pg.sprite.spritecollide(self, group, kill)
    
     def draw_grid(self):
          for x in range(0, WIDTH, TILESIZE):
@@ -161,8 +163,30 @@ class Game:
     #     pg.display.flip()
     #     self.wait_for_key()
   
-
-
+# creates start screen
+    def show_start_screen(self):
+        # fills the background color
+        self.screen.fill(BGCOLOR)
+        # draws text on the background
+        self.draw_text(self.screen, "Press a Key to Begin. Collect the coins without touching the enemies.", 24, WHITE, WIDTH/4 - 32, 2)
+        # waits for a keyboard input to start the game
+        pg.display.flip()
+        self.wait_for_key()
+ 
+    # creates loss screen
+    def show_loss_screen(self):
+        # Creates bank of insults
+        myinsults = ["do better.", "wow!", "lil bro", "good luck chuck.", "Really?", "...", "WStop playing."]
+        # fills the background color
+        self.screen.fill(BGCOLOR)
+        # draws text on the background
+        # Adds random insult when you die - center centers the text in the space of 200 characters
+        self.draw_text(self.screen, random.choice(myinsults).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
+        # runs the game over method and opens the menu without closing it
+        pg.display.flip()
+        self.game_over()
+ 
+    # c
         
  
 # Instantiate the game...
