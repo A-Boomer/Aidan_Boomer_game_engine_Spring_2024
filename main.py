@@ -8,6 +8,9 @@ from settings import *
 from sprites import *
 from random import randint 
 import sys
+import pygame as pg
+from sprites import *
+pg.init()
 from os import path
 from healthbar import *
 from random import randint
@@ -264,7 +267,7 @@ class SpeedUp(pg.sprite.Sprite):
 def update(self):
     self.speed = PLAYER_SPEED
     # Handle player movement
-    keys = pg.key.get_pressed()
+    keys = pg.key.get_pressed() 
     if keys[pg.K_LEFT]:
         self.rect.x -= self.speed
         self.collide_with_power_ups('speed_up')

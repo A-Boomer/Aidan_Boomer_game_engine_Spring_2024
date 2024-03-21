@@ -23,7 +23,8 @@ class Player(pg.sprite.Sprite):
     # Handle player movement
     keys = pg.key.get_pressed()
     if keys[pg.K_LEFT]:
-        self.rect.x -= self.speed
+        def self(self):
+            self.rect.x -= self.speed
     # Add similar logic for other directions
 
     # Check collision with enemies
