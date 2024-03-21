@@ -2,6 +2,7 @@
 import pygame as pg
 from settings import *
 from healthbar import *
+from random import randint
 vec =pg.math.Vector2
 
 class Player(pg.sprite.Sprite):
@@ -17,6 +18,27 @@ class Player(pg.sprite.Sprite):
         self.y = y * TILESIZE
         self.moneybag = 0
         self.hitpoints = 100
+    def update(self):
+        self.speed = PLAYER_SPEED
+    # Handle player movement
+    keys = pg.key.get_pressed()
+    if keys[pg.K_LEFT]:
+        self.rect.x -= self.speed
+    # Add similar logic for other directions
+
+    # Check collision with enemies
+    hits = pg.sprite.spritecollide(self, self.game.mobs, False)
+    for hit in hits:
+        self.game.player.hitpoints -= 10  # Reduce player health
+        
+    if self.game.player.hitpoints <= 0:
+        self.game.show_loss_screen()  # If player health drops to zero, show loss screen
+
+    # Check if player collects health
+    hits = pg.sprite.spritecollide(self, self.game.health, True)
+    for hit in hits:
+        self.game.player.hitpoints += 20  # Increase player health
+        self.collide_with_power_ups('speed_up')  # Check collision with power-ups
    
     def get_keys(self):
         self.vx, self.vy = 0, 0
@@ -161,6 +183,19 @@ class Mob(pg.sprite.Sprite):
                 self.x = x * TILESIZE
                 self.y = y * TILESIZE
                 self.speed = 1 
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        self.rect.x = randint(0, WIDTH)
+        self.rect.y = randint(0, HEIGHT)
+    
+        if self.rect.left > WIDTH or self.rect.right < 0 or self.rect.top > HEIGHT or self.rect.bottom < 0:
+            self.rect.x = randint(0, WIDTH)
+        self.rect.y = randint(0, HEIGHT)
+        if pg.sprite.spritecollide(self, self.game.player, False):
+            self.game.player.hitpoints -= 20  # Reduce player health if collided with the mob
+        if self.game.player.hitpoints <= 0:
+            self.game.show_loss_screen()  # If player health drops to zero, show loss screen
     def collide_with_walls(self, dir):
         if dir == 'x':
             # print('colliding on the x')
