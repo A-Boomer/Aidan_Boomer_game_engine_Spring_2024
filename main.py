@@ -85,6 +85,8 @@ class Game:
                     Coin(self, col, row)
                 if tile == 'M':
                     Mob(self, col, row)
+                    if tile == 'S':
+                        SpeedUp(self, col, row)
     def run(self):
         #
         self.playing = True
@@ -181,7 +183,7 @@ class Game:
         self.screen.fill(BGCOLOR)
         # draws text on the background
         # Adds random insult when you die - center centers the text in the space of 200 characters
-        self.draw_text(self.screen, random.choice(myinsults).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
+        #self.draw_text(self.screen, random.choice(myinsults).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
         # runs the game over method and opens the menu without closing it
         pg.display.flip()
         self.game_over()
@@ -194,7 +196,7 @@ class Game:
         self.screen.fill(BGCOLOR)
         # draws text on the background
         # adds random compliment when you win - center centers the text in the space of 200 characters
-        self.draw_text(self.screen, random.choice(mycompliments).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
+        #self.draw_text(self.screen, random.choice(mycompliments).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
         # runs the game over method and opens the menu without closing it
         pg.display.flip()
         self.game_over()
@@ -227,6 +229,45 @@ class Game:
                 if event.type == pg.QUIT:
                     waiting = False
                     self.quit()
+
+
+class SpeedUp(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.power_ups
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = game.speed_up_img
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+
+    # Inside the load_data() method
+        self.speed_up_img = pg.image.load(path.join(self.img_folder, 'speed_up.png')).convert_alpha()
+
+    # Inside the Player class
+def update(self):
+    self.speed = PLAYER_SPEED
+    # Handle player movement
+    keys = pg.key.get_pressed()
+    if keys[pg.K_LEFT]:
+        self.rect.x -= self.speed
+        self.collide_with_power_ups('speed_up')
+    # Add similar logic for other directions
+
+def collide_with_power_ups(self, power_up_type):
+    hits = pg.sprite.spritecollide(self, self.game.power_ups, True)
+    for hit in hits:
+        if power_up_type == 'speed_up':
+            self.speed *= 2  # Double the player's speed temporarily
+            pg.time.set_timer(SPEED_UP_EXPIRE_EVENT, 600)  # Set timer to reset speed after 5 seconds
+
+            SPEED_UP_EXPIRE_EVENT = pg.USEREVENT + 1
+
+            # Inside the events() method
+        def events(self):
+            if events.type == SPEED_UP_EXPIRE_EVENT:
+                self.player.speed /= 2  # Reset speed back to normal
         
  
 # Instantiate the game...
