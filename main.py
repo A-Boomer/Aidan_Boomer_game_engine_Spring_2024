@@ -186,7 +186,47 @@ class Game:
         pg.display.flip()
         self.game_over()
  
-    # c
+    # creates victory screen
+    def show_victory_screen(self):
+        # Creates bank of compliments
+        mycompliments = ["WIN!", "finally.", "Proud of you", "Nice!"]
+        # fills the background color
+        self.screen.fill(BGCOLOR)
+        # draws text on the background
+        # adds random compliment when you win - center centers the text in the space of 200 characters
+        self.draw_text(self.screen, random.choice(mycompliments).center(200), 24, WHITE, 0, HEIGHT/2 - 24)
+        # runs the game over method and opens the menu without closing it
+        pg.display.flip()
+        self.game_over()
+        # defines the wait for key method
+    
+    def wait_for_key(self):
+        # when we are waiting, the clock ticks
+        waiting = True
+        while waiting:
+            # our clock ticks based on frames per second
+            self.clock.tick(FPS)
+            # when we quit the game, run the quit method and we are no longer waiting
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.quit()
+                # when we release the key, we are no longer waiting
+                if event.type == pg.KEYUP:
+                    waiting = False
+ 
+    # creates a new method that does not remove the menu when we release a key
+    def game_over(self):
+        # when we are waiting, the clock ticks
+        waiting = True
+        while waiting:
+            # our clock ticks based on frames per second
+            self.clock.tick(FPS)
+            # when we quit the game, run the quit method and we are no longer waiting
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.quit()
         
  
 # Instantiate the game...
