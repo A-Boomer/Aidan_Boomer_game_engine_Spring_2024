@@ -16,6 +16,7 @@ class Player(pg.sprite.Sprite):
         self.x = x * TILESIZE
         self.y = y * TILESIZE
         self.moneybag = 0
+        self.hitpoints = 100
    
     def get_keys(self):
         self.vx, self.vy = 0, 0
@@ -71,6 +72,9 @@ class Player(pg.sprite.Sprite):
  
             if str(hits[0].__class__.__name__) == "PowerUp":
                 print ("You just got Powered Up!")
+            if str(hits[0].__class__.__name__) == "Health":
+                self.hitpoints =+ 100
+            
  
     def update(self):
         self.get_keys()
@@ -83,6 +87,7 @@ class Player(pg.sprite.Sprite):
         # add collision later
         self.collide_with_walls('y')
         self.collide_with_group(self.game.coins, True)
+        self.collide_with_group(self.game.health, True)
          
         # coin_hits = pg.sprite.spritecollide(self.game.coins, True)
         # if coin_hits:
@@ -114,6 +119,21 @@ class Coin(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+class Health(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.health
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+
 class PowerUp(pg.sprite.Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.power_up

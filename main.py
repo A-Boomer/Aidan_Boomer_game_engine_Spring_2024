@@ -9,6 +9,7 @@ from sprites import *
 from random import randint 
 import sys
 from os import path
+from healthbar import *
 from random import randint
 pg.mixer.init() 
 
@@ -19,7 +20,18 @@ mobs
 maps
 Wanting to add more maps to expand ganme while having health and mobs that can kill
 '''
- 
+def draw_health_bar(surf, x, y, pct):
+    if pct < 0:
+        pct = 0
+    BAR_LENGTH = 32
+    BAR_HEIGHT = 10
+    fill = (pct / 100) * BAR_LENGTH
+    outline_rect = pg.Rect(x, y, BAR_LENGTH, BAR_HEIGHT)
+    fill_rect = pg.Rect(x, y, fill, BAR_HEIGHT)
+    pg.draw.rect(surf, GREEN, fill_rect)
+    pg.draw.rect(surf, WHITE, outline_rect, 2)
+
+    
  
 # Define game class...
 class Game:
@@ -69,6 +81,7 @@ class Game:
         self.coins = pg.sprite.Group()
         self.power_ups = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
+        self.health = pg.sprite.Group()
         # self.player1 = Player(self, 1, 1)
         # for x in range(10, 20):
         # ranges
@@ -83,10 +96,10 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
+                if tile == 'H':
+                    Health(self, col, row)
                 if tile == 'M':
                     Mob(self, col, row)
-                    if tile == 'S':
-                        SpeedUp(self, col, row)
     def run(self):
         #
         self.playing = True
@@ -119,8 +132,10 @@ class Game:
         surface.blit(text_surface, text_rect)
     def draw(self):
         print('drawing')
+        draw_health_bar(self.screen, self.player.rect.x, self.player.rect.y-8, self.player.hitpoints)
         self.screen.fill(BGCOLOR)
         self.draw_grid()
+        self.draw_text(self.screen, "Lives " + str(self.player.hitpoints), 24, WHITE, 2, 3)
         self.all_sprites.draw(self.screen)
         # self.draw_text(self.screen, str(self.cooldown.current_time), 24, WHITE, WIDTH/2 - 32, 2)
         # self.draw_text(self.screen, str(self.cooldown.get_countdown()), 24, WHITE, WIDTH/2 - 32, 120)

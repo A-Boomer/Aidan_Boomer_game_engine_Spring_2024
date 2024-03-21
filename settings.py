@@ -3,7 +3,7 @@ HEIGHT = 768
 
 FPS = 30
 
-TITLE = "My Fun Game"
+TITLE = "My good Game"
 
 TILESIZE = 32
 
