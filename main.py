@@ -23,10 +23,13 @@ class Game:
     def load_data(self):
         game_folder = path.dirname(__file__)
         self.map_data = []
-        
+        self.game_folder = path.dirname(__file__)
+        self.img_folder = path.join(self.game_folder, 'images')
+        self.player_img = pg.image.load(path.join(self.img_folder, 'shrek.png')).convert_alpha()
         with open(path.join(game_folder, 'map.txt'), 'rt') as f:
             for line in f:
                 self.map_data.append(line)
+                self.img_folder = path
 
     def new(self):
         print("create new game...")
