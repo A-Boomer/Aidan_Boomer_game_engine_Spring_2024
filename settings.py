@@ -3,7 +3,7 @@ HEIGHT = 768
 
 FPS = 30
 
-TITLE = "My good Game"
+TITLE = "My Game"
 
 TILESIZE = 32
 
@@ -15,8 +15,6 @@ GREEN = (0,255,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
 LIGHTGREY = (75,75,75)
-RED = (136,8,8)
-ORANGE = (255,140,0)
-
+RED = (25,25,25)
 # Player settings
-PLAYER_SPEED = 250
+PLAYER_SPEED = 300
