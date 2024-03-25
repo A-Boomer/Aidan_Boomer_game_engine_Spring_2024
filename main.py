@@ -118,7 +118,7 @@ import tkinter as tk
 root = tk.Tk()
 root.title("Game Start Screen")
 
-title_label = tk.Label(root, text="Coin Collecters", font=("Helvetica", 20))
+title_label = tk.Label(root, text="Coin Collecters", font=("Times New Roman", 20))
 title_label.pack(pady=20)
 
 start_button = tk.Button(root, text="Start Game", command=start_game)
